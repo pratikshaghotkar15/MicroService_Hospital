@@ -1,0 +1,72 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: API-GATEWAY
+
+  cloud:
+    gateway:
+      routes:
+        - id: ADMIN-SERVICE
+          uri: lb://ADMIN-SERVICE
+          predicates:
+            - Path=/admins/**
+
+        - id: BILLING-SERVICE
+          uri: lb://BILLING-SERVICE
+          predicates:
+            - Path=/billings/**
+
+        - id: DOCTOR-SERVICE
+          uri: lb://DOCTOR-SERVICE
+          predicates:
+            - Path=/doctors/**
+
+        - id: MEDICINE-SERVICE
+          uri: lb://MEDICINE-SERVICE
+          predicates:
+            - Path=/medicines/**
+
+        - id: NURSE-SERVICE
+          uri: lb://NURSE-SERVICE
+          predicates:
+            - Path=/nurses/**
+
+        - id: PATIENT-SERVICE
+          uri: lb://PATIENT-SERVICE
+          predicates:
+            - Path=/patients/**
+
+        - id: PATIENTHISTORY-SERVICE
+          uri: lb://PATIENTHISTORY-SERVICE
+          predicates:
+            - Path=/patienthistory/**
+
+        - id: APPOINTMENT-SERVICE
+          uri: lb://APPOINTMENT-SERVICE
+          predicates:
+            - Path=/**
+
+
+
+
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+
+okta:
+  oauth2:
+    issuer: https://dev-71099436.okta.com/oauth2/default
+    audience: api://default
+    client-id: 0oa8mivewhhNLh6Y45d7
+    client-secret: QsJcNSf57JOrniJsQVo77S8-GpEvbB3tmKnTFB-B
+    scopes: openid, profile, email, offline_access
